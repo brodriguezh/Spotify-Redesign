@@ -1,5 +1,3 @@
-
-
 import NextAuth from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
 
@@ -13,8 +11,8 @@ async function refreshAccessToken(token) {
     const url =
       "https://accounts.spotify.com/api/token?" +
       new URLSearchParams({
-        clientId: process.env.SPOTIFY_CLIENT_ID,
-        clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+        client_id: process.env.SPOTIFY_CLIENT_ID,
+        client_secret: process.env.SPOTIFY_CLIENT_SECRET,
         grant_type: "refresh_token",
         refresh_token: token.refreshToken,
       });
@@ -39,6 +37,7 @@ async function refreshAccessToken(token) {
       refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
     };
   } catch (error) {
+    console.log(error);
 
     return {
       ...token,
